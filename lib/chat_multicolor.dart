@@ -97,6 +97,7 @@ class _ChatmulticolorPageState extends State<ChatmulticolorPage> {
               alignment: Alignment.topCenter,
               width: MediaQuery.of(context).size.width,
               child: SingleChildScrollView(
+                physics: ClampingScrollPhysics(),
                 child: Column(
                   children: _chatmulticolorbubbles(),
                 ),
