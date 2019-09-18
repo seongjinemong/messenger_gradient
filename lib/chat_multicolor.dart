@@ -35,8 +35,21 @@ class _ChatmulticolorPageState extends State<ChatmulticolorPage> {
     );
   }
 
+  ColorFiltered _dumpspace(height) {
+    return ColorFiltered(
+      colorFilter: ColorFilter.mode(Colors.white, BlendMode.values[7]),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: height,
+        color: Colors.transparent,
+      ),
+    );
+  }
+
   List<Widget> _chatmulticolorbubbles() {
     List<Widget> list = [];
+
+    list.add(_dumpspace(10.0));
 
     for (var i = 0; i < 100; i++) {
       if (randomizer.nextInt(2) == 1)
@@ -44,6 +57,9 @@ class _ChatmulticolorPageState extends State<ChatmulticolorPage> {
       else
         list.add(_chatbubble(true));
     }
+
+    list.add(_dumpspace(50.0));
+
     return list;
   }
 
@@ -52,7 +68,7 @@ class _ChatmulticolorPageState extends State<ChatmulticolorPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 15,
-        brightness: Brightness.light,
+        brightness: Brightness.dark,
         backgroundColor: Colors.white,
         title: Text(
           'Chat Gradient Study',
