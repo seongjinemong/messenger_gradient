@@ -3,51 +3,47 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class ChatPage extends StatefulWidget {
+class ChatmulticolorPage extends StatefulWidget {
   @override
-  _ChatPageState createState() => _ChatPageState();
+  _ChatmulticolorPageState createState() => _ChatmulticolorPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
-  List<bool> isme = [
-    true,
-    false,
-    true,
-    true,
-    true,
-    true,
-    false,
-    false,
-    false,
-    true,
-    false,
-    true,
-    true,
-    false,
-  ];
-
+class _ChatmulticolorPageState extends State<ChatmulticolorPage> {
   var randomizer = new Random();
 
-  List<Widget> _chatbubbles() {
-    List<Widget> list = [];
-
-    for (var i = 0; i < 100; i++) {
-      list.add(
-        Container(
+  ColorFiltered _chatbubble(_ismine) {
+    return ColorFiltered(
+      colorFilter: ColorFilter.mode(
+          Colors.white, _ismine ? BlendMode.values[4] : BlendMode.values[7]),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        alignment: _ismine ? Alignment.centerLeft : Alignment.centerRight,
+        color: Colors.transparent,
+        child: Container(
           width: (randomizer
                       .nextInt(MediaQuery.of(context).size.width.toInt() - 90) +
                   50)
               .toDouble(),
           height: 30,
-          margin: EdgeInsets.only(top: 5, right: 20),
+          margin: EdgeInsets.only(top: 5, right: 10, left: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
             color: Colors.grey.withOpacity(0.5),
           ),
         ),
-      );
-    }
+      ),
+    );
+  }
 
+  List<Widget> _chatmulticolorbubbles() {
+    List<Widget> list = [];
+
+    for (var i = 0; i < 100; i++) {
+      if (randomizer.nextInt(2) == 1)
+        list.add(_chatbubble(false));
+      else
+        list.add(_chatbubble(true));
+    }
     return list;
   }
 
@@ -55,7 +51,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
+        elevation: 10,
         brightness: Brightness.light,
         backgroundColor: Colors.white,
         title: Text(
@@ -82,20 +78,11 @@ class _ChatPageState extends State<ChatPage> {
           ),
           Center(
             child: Container(
+              alignment: Alignment.topCenter,
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: ColorFiltered(
-                colorFilter: ColorFilter.mode(Colors.white, BlendMode.values[7]),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  color: Colors.transparent,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: _chatbubbles(),
-                    ),
-                  ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: _chatmulticolorbubbles(),
                 ),
               ),
             ),
