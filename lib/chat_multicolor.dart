@@ -25,7 +25,7 @@ class _ChatmulticolorPageState extends State<ChatmulticolorPage> {
                   50)
               .toDouble(),
           height: 30,
-          margin: EdgeInsets.only(top: 5, right: 10, left: 10),
+          margin: EdgeInsets.only(top: 10, right: 10, left: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
             color: Colors.grey.withOpacity(0.5),
@@ -51,7 +51,7 @@ class _ChatmulticolorPageState extends State<ChatmulticolorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 10,
+        elevation: 15,
         brightness: Brightness.light,
         backgroundColor: Colors.white,
         title: Text(
