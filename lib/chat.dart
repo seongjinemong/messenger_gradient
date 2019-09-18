@@ -18,7 +18,7 @@ class _ChatPageState extends State<ChatPage> {
     for (var i = 0; i < 100; i++) {
       list.add(
         Container(
-          width: (randomizer.nextInt(300) + 50).toDouble(),
+          width: (randomizer.nextInt(MediaQuery.of(context).size.width.toInt() - 90) + 50).toDouble(),
           height: 30,
           margin: EdgeInsets.only(top: 5, right: 20),
           decoration: BoxDecoration(
