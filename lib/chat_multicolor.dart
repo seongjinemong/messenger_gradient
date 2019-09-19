@@ -67,7 +67,7 @@ class _ChatmulticolorPageState extends State<ChatmulticolorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 15,
+        elevation: 0,
         brightness: Brightness.dark,
         backgroundColor: Colors.white,
         title: Text(
