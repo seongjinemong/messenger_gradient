@@ -21,11 +21,10 @@ class _ChatmulticolorPageState extends State<ChatmulticolorPage> {
         color: Colors.transparent,
         child: Container(
           width: (randomizer
-                      .nextInt(MediaQuery.of(context).size.width.toInt() - 90) +
-                  50)
+                      .nextInt(MediaQuery.of(context).size.width.toInt() - 200) + 80)
               .toDouble(),
-          height: 30,
-          margin: EdgeInsets.only(top: 10, right: 10, left: 10),
+          height: randomizer.nextInt(5) == 1 ? 80 : 40,
+          margin: EdgeInsets.only(top: 5, right: 10, left: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
             color: Colors.grey.withOpacity(0.5),
@@ -68,7 +67,7 @@ class _ChatmulticolorPageState extends State<ChatmulticolorPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         backgroundColor: Colors.white,
         title: Text(
           'Chat Gradient Study',
