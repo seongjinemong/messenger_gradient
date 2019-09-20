@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_app/assets/chatbubbles.dart';
 
 class ChatmulticolorPage extends StatefulWidget {
   @override
@@ -11,28 +12,7 @@ class ChatmulticolorPage extends StatefulWidget {
 class _ChatmulticolorPageState extends State<ChatmulticolorPage> {
   var randomizer = new Random();
 
-  ColorFiltered _chatbubble(_ismine) {
-    return ColorFiltered(
-      colorFilter: ColorFilter.mode(
-          Colors.white, _ismine ? BlendMode.values[4] : BlendMode.values[7]),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        alignment: _ismine ? Alignment.centerLeft : Alignment.centerRight,
-        color: Colors.transparent,
-        child: Container(
-          width: (randomizer
-                      .nextInt(MediaQuery.of(context).size.width.toInt() - 200) + 80)
-              .toDouble(),
-          height: randomizer.nextInt(5) == 1 ? 80 : 40,
-          margin: EdgeInsets.only(top: 5, right: 10, left: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            color: Colors.grey.withOpacity(0.5),
-          ),
-        ),
-      ),
-    );
-  }
+  ChatBubbles _chatbubbles = new ChatBubbles();
 
   ColorFiltered _dumpspace(height) {
     return ColorFiltered(
@@ -45,16 +25,47 @@ class _ChatmulticolorPageState extends State<ChatmulticolorPage> {
     );
   }
 
+  ColorFiltered _chatbubble(_ismine, _issame) {
+    var width =
+        (randomizer.nextInt(MediaQuery.of(context).size.width.toInt() - 200) +
+                40)
+            .toDouble();
+
+    return ColorFiltered(
+      colorFilter: ColorFilter.mode(
+          Colors.white, _ismine ? BlendMode.values[4] : BlendMode.values[7]),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        alignment: _ismine ? Alignment.centerLeft : Alignment.centerRight,
+        color: Colors.transparent,
+        child: Container(
+          width: width > 300 ? 300 - randomizer.nextInt(150).toDouble() : width,
+          height: 40,
+          //height: randomizer.nextInt(5) == 1 ? 80 : 40,
+          margin: EdgeInsets.only(top: _issame ? 5 : 15, right: 10, left: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            color: Colors.grey.withOpacity(0.5),
+          ),
+        ),
+      ),
+    );
+  }
+
   List<Widget> _chatmulticolorbubbles() {
     List<Widget> list = [];
 
     list.add(_dumpspace(10.0));
 
-    for (var i = 0; i < 100; i++) {
-      if (randomizer.nextInt(2) == 1)
-        list.add(_chatbubble(false));
+    for (var i = 1; i < 100; i++) {
+      if (_chatbubbles.ismine[i] == true)
+        _chatbubbles.ismine[i - 1]
+            ? list.add(_chatbubble(true, true))
+            : list.add(_chatbubble(true, false));
       else
-        list.add(_chatbubble(true));
+        _chatbubbles.ismine[i - 1]
+            ? list.add(_chatbubble(false, false))
+            : list.add(_chatbubble(false, true));
     }
 
     list.add(_dumpspace(50.0));
